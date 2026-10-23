@@ -1,0 +1,16 @@
+[Unit]
+Description=Netology Spring Boot application
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/docker rm -f myapp
+ExecStart=/usr/bin/docker run --rm --name myapp -p 127.0.0.1:8080:8080 myapp:latest
+ExecStop=/usr/bin/docker stop -t 10 myapp
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
